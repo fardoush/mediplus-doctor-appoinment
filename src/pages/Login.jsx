@@ -2,28 +2,24 @@ import React, { useContext, useRef, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [error, setError] = useState("");
-  const { signIn, forget, googleLogin } = useContext(AuthContext);
-
+  const { signIn, googleLogin } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-
   const emailRef = useRef();
 
-  // Google Login
   const handleGoogleLogin = () => {
     googleLogin()
-      .then((result) => {
+      .then(() => {
+        toast.success("Login successful!"); // ✅ only success toast
         navigate(location.state ? location.state : "/");
       })
-      .catch((error) => {
-        setError(error.code);
-      });
+      .catch(() => {});
   };
 
-  // Email/Password Login
   const handleLogin = (e) => {
     e.preventDefault();
     setError("");
@@ -33,38 +29,11 @@ const Login = () => {
     const password = form.password.value;
 
     signIn(email, password)
-      .then((result) => {
-        const user = result.user;
-
-        // ✅ Email Verification Check
-        if (!user.emailVerified) {
-          setError("Please verify your email before logging in.");
-          return signOut(auth); // optional: logout immediately
-        }
-
+      .then(() => {
+        toast.success("Login successful!"); // ✅ only success toast
         navigate(location.state ? location.state : "/");
       })
-      .catch((err) => {
-        setError(err.code);
-      });
-  };
-
-  // Forget Password
-  const handleForgetPassword = () => {
-    const email = emailRef.current.value;
-
-    if (!email) {
-      setError("Please enter your email first");
-      return;
-    }
-
-    forget(email)
-      .then(() => {
-        alert("Password reset email sent!");
-      })
-      .catch((err) => {
-        setError(err.code);
-      });
+      .catch(() => {}); // ignore error toast
   };
 
   return (
@@ -78,7 +47,6 @@ const Login = () => {
             Login to continue to your account
           </p>
 
-          {/* Google Login */}
           <button
             onClick={handleGoogleLogin}
             type="button"
@@ -119,29 +87,6 @@ const Login = () => {
                 required
               />
             </div>
-
-            <div className="flex flex-wrap gap-1 items-center justify-between text-sm">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="checkbox checkbox-primary checkbox-sm"
-                />
-                <span>Remember me</span>
-              </label>
-
-              <button
-                type="button"
-                onClick={handleForgetPassword}
-                className="text-accent hover:underline"
-              >
-                Forgot password?
-              </button>
-            </div>
-
-            {/* Error Message */}
-            {error && (
-              <p className="text-red-500 text-xs text-center">{error}</p>
-            )}
 
             <button className="btn w-full bg-primary hover:bg-secondary text-white">
               Login

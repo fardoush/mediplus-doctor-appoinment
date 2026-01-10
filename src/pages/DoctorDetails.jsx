@@ -1,7 +1,11 @@
 import React from "react";
-import { useLoaderData, useParams } from "react-router";
+import { useLoaderData, useNavigate, useParams } from 'react-router';
+
+import { ToastContainer, toast } from 'react-toastify';
+import { addToStoredDB } from "../Utilities/addToDB";
 
 const DoctorDetails = () => {
+    const navigate = useNavigate();
   const { id } = useParams();
   const doctorId = parseInt(id);
   const data = useLoaderData();
@@ -15,6 +19,18 @@ const DoctorDetails = () => {
     availability,
     fee_bdt,
   } = singleDoctor || {};
+
+  const handleAppoinment = (id) => {
+  addToStoredDB(parseInt(id));
+
+  toast.success(`Appointment Schedule For ${name} Successfully`, {
+    autoClose: 1000,
+    onClose: () =>
+      navigate("/myBooking", {
+        state: { refresh: true },
+      }),
+  });
+};
 
   //   doctor available
 
@@ -143,9 +159,14 @@ const DoctorDetails = () => {
             only.
           </div>
 
-          <button className="btn btn-primary w-full rounded-full text-base">
-            Book Appointment Now
-          </button>
+          <button
+          onClick={() => handleAppoinment(id)}
+          className="mt-8 btn btn-full rounded-full bg-transparent text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white shadow-none transition duration-300 ease-in-out"
+        >
+          Book Appointment Now
+        </button>
+
+        <ToastContainer />
         </div>
       </div>
     </section>

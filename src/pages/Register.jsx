@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
-  const { createUser, emailVerification, setSuccess, loading } =
+  const { createUser, emailVerification, loading, setSuccess, setLoading } =
     useContext(AuthContext);
 
   const [error, setError] = useState("");
@@ -12,43 +14,65 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     const form = e.target;
     const name = form.name.value.trim();
     const email = form.email.value.trim();
     const password = form.password.value;
 
-    // basic validation
+    // Basic validation
     if (name.length < 5) {
       setError("Name should be at least 5 characters");
+      toast.error("Name should be at least 5 characters");
+      setLoading(false);
       return;
     }
 
     if (password.length < 6) {
       setError("Password should be at least 6 characters");
+      toast.error("Password should be at least 6 characters");
+      setLoading(false);
       return;
     }
 
+    // Create user
     createUser(email, password)
       .then(() => {
-        // send verification email
-        emailVerification().then(() => {
-          setSuccess(true);
-          navigate("/login"); // optional redirect
-        });
+        // Send verification email
+        emailVerification()
+          .then(() => {
+            setSuccess(true);
+            toast.success("Registration successful! ✅ Welcome!", {
+              position: "top-right",
+              autoClose: 3000,
+              theme: "colored",
+            });
 
-        form.reset();
+            // Redirect to Home page
+            navigate("/");
+          })
+          .catch(() => {
+            toast.warning(
+              "Registration successful! But verification email failed."
+            );
+            navigate("/");
+          })
+          .finally(() => setLoading(false));
       })
       .catch((err) => {
         setError(err.message);
+        toast.error(err.message);
+        setLoading(false);
       });
+
+    form.reset();
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
       <div className="card w-full max-w-md bg-base-100 shadow-xl border border-base-300 rounded-2xl">
         <div className="card-body">
-          {/* Heading */}
           <h2 className="text-2xl font-bold text-center text-primary mb-1">
             Create Account
           </h2>
@@ -57,7 +81,6 @@ const Register = () => {
           </p>
 
           <form onSubmit={handleRegister} className="space-y-4">
-            {/* Name */}
             <div>
               <label className="label">
                 <span className="label-text font-medium">Full Name</span>
@@ -71,7 +94,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Email */}
             <div>
               <label className="label">
                 <span className="label-text font-medium">Email Address</span>
@@ -85,7 +107,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Password */}
             <div>
               <label className="label">
                 <span className="label-text font-medium">Password</span>
@@ -99,12 +120,10 @@ const Register = () => {
               />
             </div>
 
-            {/* Error */}
             {error && (
               <p className="text-red-500 text-xs text-center">{error}</p>
             )}
 
-            {/* Button */}
             <button
               disabled={loading}
               className="btn w-full bg-primary hover:bg-secondary text-white mt-2 disabled:opacity-70"
@@ -112,7 +131,6 @@ const Register = () => {
               {loading ? "Creating Account..." : "Create Account"}
             </button>
 
-            {/* Footer */}
             <p className="text-center text-sm text-gray-500 mt-4">
               Already have an account?{" "}
               <Link
@@ -125,6 +143,9 @@ const Register = () => {
           </form>
         </div>
       </div>
+
+      {/* ToastContainer included inside Register component */}
+      <ToastContainer />
     </div>
   );
 };

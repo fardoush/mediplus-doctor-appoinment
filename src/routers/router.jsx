@@ -7,8 +7,9 @@ import DoctorDetails from "../pages/DoctorDetails";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-// import PrivateRoute from "../Provider/PrivateRoute";
-
+import PrivateRoute from "../Provider/PrivateRoute";
+import Loading from "../components/Loading";
+import MyBooking from "../pages/MyBooking";
 
 const router = createBrowserRouter([
   {
@@ -25,33 +26,34 @@ const router = createBrowserRouter([
       {
         path: "/doctorDetails/:id",
         loader: () => fetch("/doctorData.json"),
-        Component: DoctorDetails
-        // Component: () => (
-        //   <PrivateRoute>
-        //     <DoctorDetails/>
-        //   </PrivateRoute>
-        // )
-     
+        hydrateFallbackElement: <Loading />,
+        Component: () => (
+          <PrivateRoute>
+            <DoctorDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myBooking",
+        loader: () => fetch("/doctorData.json"),
+        Component: MyBooking,
       },
     ],
   },
   {
     path: "/auth",
     Component: AuthLayout,
-    children:[
+    children: [
       {
-        path:"/auth/login",
-        Component: Login
-      
+        path: "/auth/login",
+        Component: Login,
       },
       {
         path: "/auth/register",
-        Component: Register
-     
-      }
-    ]
+        Component: Register,
+      },
+    ],
   },
-
 ]);
 
 export default router;
