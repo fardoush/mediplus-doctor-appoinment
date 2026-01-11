@@ -12,7 +12,7 @@ const DoctorChart = ({ data }) => {
   }));
   console.log("Chart data 👉", formattedData);
   return (
-    <div className="max-w-7xl mx-auto bg-white p-10 rounded-2xl">
+    <div className="lg:max-w-7xl w-full mx-auto bg-white p-10 rounded-2xl">
       {" "}
       <BarChart width={900} height={350} data={formattedData}>
         {" "}

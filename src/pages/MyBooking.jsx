@@ -34,10 +34,10 @@ const MyBooking = () => {
   };
 
   return (
-    <div className="py-12 flex flex-col gap-8">
+    <div className="w-full mx-auto py-12 flex flex-col justify-center items-center gap-8">
       <DoctorChart data={bookingList} />
 
-      <div className="flex flex-col gap-5">
+      <div className=" max-w-7xl flex justify-center items-center flex-col gap-5">
         {bookingList.length ? (
           bookingList.map((doctor) => (
             <MyAppoinmentList

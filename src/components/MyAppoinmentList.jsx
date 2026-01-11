@@ -12,26 +12,36 @@ const MyAppoinmentList = ({ singleData, onCancel }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto bg-white rounded-3xl p-6">
-      <div className="pb-4 flex justify-between items-center border-dashed border-b-2">
+    <div className="w-full mx-auto bg-white rounded-2xl shadow-sm p-4 sm:p-6">
+      {/* Top Section */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-4 border-b border-dashed">
+        {/* Doctor Info */}
         <div>
-          <h6 className="text-2xl font-semibold">{name}</h6>
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
+            {name}
+          </h3>
 
           {education.map((item, index) => (
-            <p key={index} className="text-sm text-gray-400">
+            <p key={index} className="text-sm text-gray-500">
               {item}
             </p>
           ))}
         </div>
 
-        <span className="text-gray-400">
-          Appointment Fee : {fee_bdt} Taka + Vat
-        </span>
+        {/* Fee */}
+        <div className="text-sm sm:text-base text-gray-500 md:text-right">
+          Appointment Fee :{" "}
+          <span className="font-medium text-gray-700">
+            {fee_bdt} Taka + Vat
+          </span>
+        </div>
       </div>
 
+      {/* Cancel Button */}
       <button
         onClick={handleCancel}
-        className="mt-8 btn btn-full rounded-full bg-transparent text-red-500 border border-red-500 hover:bg-red-500 hover:text-white"
+        className="mt-6 w-full rounded-full border border-red-500 py-3 text-sm sm:text-base font-medium text-red-500
+        hover:bg-red-500 hover:text-white transition-all duration-300"
       >
         Cancel Appointment
       </button>
