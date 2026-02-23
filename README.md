@@ -33,3 +33,7 @@ Authenticate: Sign up or Log in to access full features.
 Book: View profiles and book appointments (Protected).
 
 Manage: Track schedules and view cost analytics in "My Bookings."
+
+## 🌐 Live Demo
+
+https://doctor-appoinment-b1c3d.web.app/
