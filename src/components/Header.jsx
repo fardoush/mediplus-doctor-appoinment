@@ -17,22 +17,20 @@ const Header = () => {
   const menuLinks = [
     { name: "Home", to: "/" },
     { name: "My Bookings", to: "/myBooking" },
-    { name: "Blogs", to: "/blogs" },
-    { name: "Contact Us", to: "/contact" },
   ];
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white shadow-sm">
       {/* Desktop header */}
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="lg:max-w-7xl w-full mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-1">
+          <Link to="/" className="flex items-center gap-1">
             <FaHeartCirclePlus className="text-accent text-2xl" />
             <span className="text-xl font-bold text-primary">
               Medi<span className="text-accent font-semibold">Plus</span>
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Menu */}
           <ul className="hidden lg:flex items-center gap-10 text-gray-600 font-medium">
@@ -117,7 +115,7 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu Links */}
-        <ul className="flex flex-col mt-6 space-y-4 px-6 text-gray-600 font-medium">
+        <ul className="flex flex-col mt-6 space-y-4  text-gray-600 font-medium">
           {menuLinks.map((link) => (
             <li key={link.to}>
               <NavLink
@@ -127,7 +125,7 @@ const Header = () => {
                     isActive
                       ? "text-primary bg-base-200 font-semibold"
                       : "hover:text-primary hover:bg-gray-100"
-                  }`
+                  } px-6`
                 }
                 onClick={() => setIsOpen(false)}
               >
@@ -136,14 +134,6 @@ const Header = () => {
             </li>
           ))}
         </ul>
-
-        {/* Extra info section */}
-        <div className="mt-6 px-6 space-y-2 text-sm text-gray-500">
-          <p>📞 CALL / TEXT (310) 785-0770</p>
-          <p>🧮 PAYMENT CALCULATOR</p>
-          <p>📰 BLOG</p>
-          <p>💰 GET $1,000 OFF</p>
-        </div>
 
         {/* Mobile Login/Logout */}
         <div className="mt-6 px-6">

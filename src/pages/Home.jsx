@@ -4,6 +4,8 @@ import SimpleAffoidable from "../components/SimpleAffoidable";
 
 import { useLoaderData } from "react-router";
 import DoctorSection from "../components/DoctorSection";
+import StatisticsSection from "./StatisticsSection";
+
 
 
 const Home = () => {
@@ -15,6 +17,8 @@ const Home = () => {
       <Hero />
       <SimpleAffoidable />
       <DoctorSection data={data} />
+      <StatisticsSection/>
+
       
     </div>
   );

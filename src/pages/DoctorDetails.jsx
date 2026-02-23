@@ -1,11 +1,11 @@
 import React from "react";
-import { useLoaderData, useNavigate, useParams } from 'react-router';
+import { useLoaderData, useNavigate, useParams } from "react-router";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { addToStoredDB } from "../Utilities/addToDB";
 
 const DoctorDetails = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { id } = useParams();
   const doctorId = parseInt(id);
   const data = useLoaderData();
@@ -13,6 +13,7 @@ const DoctorDetails = () => {
 
   const {
     name,
+    image,
     education = [],
     workplace,
     registration_number,
@@ -21,16 +22,16 @@ const DoctorDetails = () => {
   } = singleDoctor || {};
 
   const handleAppoinment = (id) => {
-  addToStoredDB(parseInt(id));
+    addToStoredDB(parseInt(id));
 
-  toast.success(`Appointment Schedule For ${name} Successfully`, {
-    autoClose: 1000,
-    onClose: () =>
-      navigate("/myBooking", {
-        state: { refresh: true },
-      }),
-  });
-};
+    toast.success(`Appointment Schedule For ${name} Successfully`, {
+      autoClose: 1000,
+      onClose: () =>
+        navigate("/myBooking", {
+          state: { refresh: true },
+        }),
+    });
+  };
 
   //   doctor available
 
@@ -41,7 +42,7 @@ const DoctorDetails = () => {
 
   return (
     <section className="bg-base-200 py-26 px-4">
-      <div className="max-w-7xl mx-auto space-y-10">
+      <div className="lg:max-w-7xl w-full mx-auto space-y-10">
         {/* Header */}
         <div className="bg-base-100 rounded-2xl p-6 md:p-10 text-center shadow-sm">
           <h2 className="text-2xl md:text-3xl font-bold">
@@ -59,7 +60,7 @@ const DoctorDetails = () => {
             {/* Image */}
             <div className="flex justify-center">
               <img
-                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600"
+                src={image}
                 alt="Doctor"
                 className="w-56 h-72 object-cover rounded-2xl ring-4 ring-primary/20"
               />
@@ -160,13 +161,13 @@ const DoctorDetails = () => {
           </div>
 
           <button
-          onClick={() => handleAppoinment(id)}
-          className="mt-8 btn btn-full rounded-full bg-transparent text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white shadow-none transition duration-300 ease-in-out"
-        >
-          Book Appointment Now
-        </button>
+            onClick={() => handleAppoinment(id)}
+            className="mt-8 btn btn-full rounded-full bg-transparent text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white shadow-none transition duration-300 ease-in-out"
+          >
+            Book Appointment Now
+          </button>
 
-        <ToastContainer />
+          <ToastContainer />
         </div>
       </div>
     </section>

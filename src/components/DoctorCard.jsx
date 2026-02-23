@@ -6,6 +6,7 @@ import { Link } from "react-router";
 const DoctorCard = ({ singleDoctor }) => {
   const {
     id,
+    image,
     availability,
     experience_years,
     name,
@@ -26,7 +27,7 @@ const DoctorCard = ({ singleDoctor }) => {
       {/* Image */}
       <div className="relative h-64 w-full overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1170&auto=format&fit=crop"
+          src={image}
           alt={name}
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
@@ -80,15 +81,9 @@ const DoctorCard = ({ singleDoctor }) => {
         {/* Action */}
         <Link
           to={`/doctorDetails/${id}`}
-          className="relative mt-auto overflow-hidden rounded-full border border-primary px-6 py-2 text-primary font-medium transition-colors duration-500 group-hover:text-white"
+          className="mt-8 btn btn-full rounded-full bg-transparent text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white shadow-none transition duration-300 ease-in-out"
         >
-          <span className="absolute inset-0 bg-primary translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 ease-out"></span>
-          <span className="relative flex items-center justify-center gap-2">
-            View Profile
-            <span className="transition-transform duration-500 ease-out group-hover:translate-x-1.5">
-              <FaLongArrowAltRight />
-            </span>
-          </span>
+          View Profile
         </Link>
       </div>
     </div>
