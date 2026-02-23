@@ -1,16 +1,35 @@
-# React + Vite
+🏥 MediPlus - Doctor Appointment System
+MediPlus is a sleek React-based platform where users can easily find and book appointments with specialized doctors. It uses Firebase for security and Tailwind CSS for a modern, responsive design.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✨ Features
+Secure Auth: Firebase Email/Password & Google login.
 
-Currently, two official plugins are available:
+Protected Routes: Doctor details and booking options are visible only to logged-in users.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Instant Booking: Book appointments directly from the doctor's profile.
 
-## React Compiler
+My Bookings: A dashboard to track appointments with a Bar Chart fee visualization.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Responsive UI: Optimized for mobile, tablet, and desktop.
 
-## Expanding the ESLint configuration
+Error Handling: Custom 404 page for a smooth user experience.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🛠️ Tech Stack
+Frontend: React.js, React Router DOM
+
+Styling: Tailwind CSS
+
+Backend/Auth: Firebase (Authentication)
+
+Data: Local JSON API
+
+Visualization: Recharts (Data Charts)
+
+🚀 How it Works
+Browse: Discover doctors on the Home Page.
+
+Authenticate: Sign up or Log in to access full features.
+
+Book: View profiles and book appointments (Protected).
+
+Manage: Track schedules and view cost analytics in "My Bookings."
